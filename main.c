@@ -3,6 +3,7 @@
    Project Three 
    main.c */
 
+// TRY DIFFERENT PRINT METHODS INSTEAD OF PRINTF!!!!!
 
 #include <ctype.h>
 #include <stddef.h>
@@ -76,44 +77,51 @@ void getISBN(unsigned long* val);
 int main() {
     
 
+
+
+
+libraryStruct libStruct[MAX_COUNTER];
+libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct));
+
 int counter=0;
 int idx =0;
 
 char buffer[ERROR_TRAP_BUFFER];
 size_t len;
  
-
-
-libraryStruct libStruct[MAX_COUNTER];
-libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct));
-
   for( idx=0;idx <MAX_COUNTER;idx++)
   {
+   
 
        /////////// AUTHOR FIRST NAME  /////////////////
        
     getFName(buffer);
-     len=strlen(buffer);
+    len=strlen(buffer);
+     
     libStruct[idx].authorFName=(char*)malloc((len+1) * sizeof(char));
-    libStruct[idx].fNamelen=(len-1);
-    strncpy(libStruct[idx].authorFName, buffer,(len-1));
+    strncpy(libStruct[idx].authorFName, buffer,(len+1));
 
+    libStruct[idx].fNamelen=(len);
     memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
     ////////////// AUTHOR LAST NAME  ////////////////////////
 
     getLName(buffer);
+     len=strlen(buffer);
     libStruct[idx].authorLName=(char*)malloc((len+1) * sizeof(char));\
-    libStruct[idx].lNamelen=(len-1);
-    strncpy(libStruct[idx].authorLName, buffer,(len-1));
+    libStruct[idx].lNamelen=(len);
+
+    strncpy(libStruct[idx].authorLName, buffer,(len+1));
     memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
       /////////////  BOOK TITILE  ////////////////////////
       
     getBookName(buffer);
+     len=strlen(buffer);
     libStruct[idx].bookTitle=(char*)malloc((len +1)* sizeof(char));
-    libStruct[idx].bookTitleLen=(len-1);
-    strncpy(libStruct[idx].bookTitle, buffer,(len-1));
+    libStruct[idx].bookTitleLen=(len);
+
+    strncpy(libStruct[idx].bookTitle, buffer,(len+1));
     memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
     /////////////// BOOK EDITION  ////////////////////////
@@ -123,9 +131,11 @@ libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct
     //////////////// PUBLICATION COMPANY  ////////////////
         
     getPubComp(buffer);
+     len=strlen(buffer);
     libStruct[idx].pubCompany=(char*)malloc((len+1) * sizeof(char));
-    libStruct[idx].pCompanyLen=(len-1);
-    strncpy(libStruct[idx].pubCompany, buffer,(len-1));
+    libStruct[idx].pCompanyLen=(len);
+
+    strncpy(libStruct[idx].pubCompany, buffer,(len+1));
     memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
     ///////////// PUBLICATION YEAR  //////////////////////
@@ -135,9 +145,11 @@ libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct
     /////////// PUBLICATION CITY  //////////////////////
 
     getPubCity(buffer);
+     len=strlen(buffer);
     libStruct[idx].pubCity=(char*)malloc((len+1) * sizeof(char));
-    libStruct[idx].pCityLen=(len-1);
-    strncpy(libStruct[idx].pubCity, buffer,(len-1));
+    libStruct[idx].pCityLen=(len);
+
+    strncpy(libStruct[idx].pubCity, buffer,(len+1));
     memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
 
@@ -145,7 +157,7 @@ libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct
 
     getISBN(&libStruct[idx].isbn);
 
-
+ 
     counter++;
     
       if (counter < MAX_COUNTER){
@@ -189,6 +201,7 @@ libraryStruct* cardCat=(libraryStruct*)malloc(MAX_COUNTER * sizeof(libraryStruct
     }
 
 
+
   return 0;
 }
 
@@ -201,6 +214,7 @@ int stringCheck(char str[ERROR_TRAP_BUFFER], size_t maxSize)
 
     (strReturnSize <= 0) ? strReturnSize = 0 : printf("Input size is too big, you are %d over, please try again \n", strReturnSize);
     
+    
     return strReturnSize;
 
 }
@@ -212,6 +226,7 @@ void getFName(char* nameEnter)
 
         printf("What is the author's first name? \n");
         scanf(" %[^\n]*c", nameEnter);
+        
 
       } while (stringCheck(nameEnter, AUTHOR_CHAR_LIMIT) > 0);
 }
